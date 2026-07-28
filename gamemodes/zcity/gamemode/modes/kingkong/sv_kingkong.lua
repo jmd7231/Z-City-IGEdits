@@ -77,10 +77,10 @@ function MODE:GiveEquipment()
 	for _, ply in ipairs(players) do
 		ply:SetSuppressPickupNotices(true)
 		ply.noSound = true
-		ply:Give("weapon_hands_sh")
 
 		if ply == king then
 			ply:SetupTeam(KING_TEAM)
+			ply:StripWeapon("weapon_hands_sh")
 			ply:SetNWBool("ZCityKingKong", true)
 			ply.ZCityKingKongOriginalModel = ply:GetModel()
 			ply:SetModel(KING_MODEL)
@@ -101,6 +101,7 @@ function MODE:GiveEquipment()
 			end
 		else
 			ply:SetupTeam(HUNTER_TEAM)
+			ply:Give("weapon_hands_sh")
 			ply:Give("weapon_pocketknife")
 			ply:Give("weapon_hk_usp")
 			ply:Give("weapon_bandage_sh")

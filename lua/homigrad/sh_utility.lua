@@ -769,11 +769,13 @@ local IsValid = IsValid
 		local fakeCam = false//IsValid(ent) and ent != ply
 		local ent = (IsValid(ent) and ent) or (IsValid(ply.FakeRagdoll) and ply.FakeRagdoll) or ply
 		local bon = ent:LookupBone("ValveBiped.Bip01_Neck1")
-		if not bon then return end
 		if not IsValid(ply) then return end
 		if not ply.GetAimVector then return end
 
 		local aim_vector = isvector(aimvec) and aimvec or isangle(aimvec) and aimvec:Forward() or ply:GetAimVector()
+		if not bon then
+			return startpos or ply:EyePos(), aim_vector * (dist or 60), {ply, ent, ply.OldRagdoll}
+		end
 
 		if not bon or not ent:GetBoneMatrix(bon) then
 			local tr = {

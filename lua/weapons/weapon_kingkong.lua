@@ -4,6 +4,8 @@ SWEP.Base = "weapon_melee"
 SWEP.PrintName = "King Kong"
 SWEP.Instructions = "LMB to smash.\nRMB to shove."
 SWEP.Category = "Z-City"
+SWEP.Slot = 1
+SWEP.SlotPos = 0
 
 SWEP.Spawnable = false
 SWEP.AdminOnly = false
@@ -42,20 +44,20 @@ SWEP.AttackRads2 = 80
 SWEP.MultiDmg1 = true
 SWEP.MultiDmg2 = true
 
-SWEP.AttackTime = 0.28
-SWEP.AnimTime1 = 0.8
-SWEP.WaitTime1 = 0.85
+SWEP.AttackTime = 0.45
+SWEP.AnimTime1 = 1.2
+SWEP.WaitTime1 = 1.5
 SWEP.AttackTimeLength = 0.12
 SWEP.ViewPunch1 = Angle(3, 0, 0)
 
-SWEP.Attack2Time = 0.2
-SWEP.AnimTime2 = 0.65
-SWEP.WaitTime2 = 1
+SWEP.Attack2Time = 0.35
+SWEP.AnimTime2 = 1
+SWEP.WaitTime2 = 1.75
 SWEP.Attack2TimeLength = 0.08
 SWEP.ViewPunch2 = Angle(2, 0, -2)
 
-SWEP.StaminaPrimary = 18
-SWEP.StaminaSecondary = 12
+SWEP.StaminaPrimary = 5
+SWEP.StaminaSecondary = 4
 SWEP.SwingAng = -20
 SWEP.SwingAng2 = 10
 SWEP.MinSensivity = 0.4
