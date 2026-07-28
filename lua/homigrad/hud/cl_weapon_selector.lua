@@ -23,9 +23,20 @@ function WS.DrawText(text, font, posX, posY, color, textAlign)
 end
 
 function WS.GetSelectedWeapon()
-    if not IsValid( LocalPlayer() ) or not LocalPlayer():Alive() then return end
-    local Weapons = WS.GetWeaponTable( LocalPlayer() )
-    return Weapons[WS.SelectedSlot] and Weapons[WS.SelectedSlot][WS.SelectedSlotPos] or Weapons[WS.LastSelectedSlot][WS.LastSelectedSlotPos] or Weapons[0][0]
+	if not IsValid( LocalPlayer() ) or not LocalPlayer():Alive() then return end
+	local Weapons = WS.GetWeaponTable( LocalPlayer() )
+	if not Weapons then return end
+
+	local selected = Weapons[WS.SelectedSlot]
+	local lastSelected = Weapons[WS.LastSelectedSlot]
+	if selected and IsValid(selected[WS.SelectedSlotPos]) then return selected[WS.SelectedSlotPos] end
+	if lastSelected and IsValid(lastSelected[WS.LastSelectedSlotPos]) then return lastSelected[WS.LastSelectedSlotPos] end
+
+	for slot = 0, 5 do
+		for _, weapon in pairs(Weapons[slot] or {}) do
+			if IsValid(weapon) then return weapon end
+		end
+	end
 end
 
 function WS.GetWeaponTable( ply )
@@ -176,29 +187,35 @@ local tAcceptKeys = {
 --]]
 
 local function GetUpper(Weapons)
-    if #LocalPlayer():GetWeapons() < 1 then return end
-    WS.SelectedSlot = WS.SelectedSlot < 0 and #Weapons or WS.SelectedSlot - 1
-    WS.SelectedSlotPos = Weapons[WS.SelectedSlot] and #Weapons[WS.SelectedSlot] or 0
-
-    --print(WS.SelectedSlot, WS.SelectedSlotPos)
-
-    if Weapons[WS.SelectedSlot] == nil or Weapons[WS.SelectedSlot][WS.SelectedSlotPos] == nil then
-        GetUpper(Weapons)
-    end
-
+	if #LocalPlayer():GetWeapons() < 1 then return end
+	for _ = 0, 5 do
+		WS.SelectedSlot = WS.SelectedSlot <= 0 and 5 or WS.SelectedSlot - 1
+		local slot = Weapons[WS.SelectedSlot]
+		if slot and table.Count(slot) > 0 then
+			for position, weapon in pairs(slot) do
+				if IsValid(weapon) then
+					WS.SelectedSlotPos = position
+					return
+				end
+			end
+		end
+	end
 end
 
 local function GetDown(Weapons)
-    if #LocalPlayer():GetWeapons() < 1 then return end
-    WS.SelectedSlot = WS.SelectedSlot > #Weapons and 0 or WS.SelectedSlot + 1
-    WS.SelectedSlotPos = 0
-
-    --print(WS.SelectedSlot, WS.SelectedSlotPos)
-
-    if Weapons[WS.SelectedSlot] == nil or Weapons[WS.SelectedSlot][WS.SelectedSlotPos] == nil then
-        GetDown(Weapons)
-    end
-
+	if #LocalPlayer():GetWeapons() < 1 then return end
+	for _ = 0, 5 do
+		WS.SelectedSlot = WS.SelectedSlot >= 5 and 0 or WS.SelectedSlot + 1
+		local slot = Weapons[WS.SelectedSlot]
+		if slot and table.Count(slot) > 0 then
+			for position, weapon in pairs(slot) do
+				if IsValid(weapon) then
+					WS.SelectedSlotPos = position
+					return
+				end
+			end
+		end
+	end
 end
 
 local LastSelected = 0

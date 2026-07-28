@@ -5,7 +5,7 @@ SWEP.PrintName = "King Kong"
 SWEP.Instructions = "LMB to smash.\nRMB to shove."
 SWEP.Category = "Z-City"
 SWEP.Slot = 1
-SWEP.SlotPos = 0
+SWEP.SlotPos = 1
 
 SWEP.Spawnable = false
 SWEP.AdminOnly = false

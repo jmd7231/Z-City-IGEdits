@@ -13,7 +13,7 @@ MODE.Chance = 0.025
 local KING_TEAM = 1
 local HUNTER_TEAM = 0
 local KING_HEALTH_PER_HUNTER = 125
-local KING_MODEL = "models/player/orangutan.mdl"
+local KING_MODEL = "models/vedatys/orangutan.mdl"
 
 util.PrecacheModel(KING_MODEL)
 
