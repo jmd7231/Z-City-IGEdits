@@ -101,7 +101,7 @@ function MODE:GiveEquipment()
 			end
 		else
 			ply:SetupTeam(HUNTER_TEAM)
-			ply:Give("weapon_hg_machete")
+			ply:Give("weapon_pocketknife")
 			ply:Give("weapon_hk_usp")
 			ply:Give("weapon_bandage_sh")
 			ply:Give("weapon_tourniquet")
