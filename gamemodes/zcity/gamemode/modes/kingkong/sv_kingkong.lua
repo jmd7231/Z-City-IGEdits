@@ -13,6 +13,9 @@ MODE.Chance = 0.025
 local KING_TEAM = 1
 local HUNTER_TEAM = 0
 local KING_HEALTH_PER_HUNTER = 125
+local KING_MODEL = "models/player/orangutan.mdl"
+
+util.PrecacheModel(KING_MODEL)
 
 util.AddNetworkString("kingkong_start")
 util.AddNetworkString("kingkong_end")
@@ -32,6 +35,11 @@ local function ResetKing(ply)
 	ply:SetNWBool("ZCityKingKong", false)
 	ply:SetModelScale(1, 0)
 	ply:SetMaxHealth(100)
+
+	if ply.ZCityKingKongOriginalModel then
+		ply:SetModel(ply.ZCityKingKongOriginalModel)
+		ply.ZCityKingKongOriginalModel = nil
+	end
 end
 
 function MODE:CanLaunch()
@@ -73,6 +81,8 @@ function MODE:GiveEquipment()
 		if ply == king then
 			ply:SetupTeam(KING_TEAM)
 			ply:SetNWBool("ZCityKingKong", true)
+			ply.ZCityKingKongOriginalModel = ply:GetModel()
+			ply:SetModel(KING_MODEL)
 			ply:SetModelScale(1.2, 0)
 
 			local health = math.max(350, (#players - 1) * KING_HEALTH_PER_HUNTER)
@@ -91,11 +101,10 @@ function MODE:GiveEquipment()
 			end
 		else
 			ply:SetupTeam(HUNTER_TEAM)
-			ply:Give("weapon_m4a1")
+			ply:Give("weapon_hg_machete")
 			ply:Give("weapon_hk_usp")
 			ply:Give("weapon_bandage_sh")
 			ply:Give("weapon_tourniquet")
-			ply:GiveAmmo(90, "AR2", true)
 			ply:GiveAmmo(34, "Pistol", true)
 			zb.GiveRole(ply, "Kong Hunter", Color(40, 125, 200))
 		end
