@@ -33,6 +33,7 @@ local function ResetKing(ply)
 	if not IsValid(ply) then return end
 
 	ply:SetNWBool("ZCityKingKong", false)
+	ply:StripWeapon("weapon_kingkong")
 	ply:SetModelScale(1, 0)
 	ply:SetMaxHealth(100)
 
@@ -88,8 +89,7 @@ function MODE:GiveEquipment()
 			local health = math.max(350, (#players - 1) * KING_HEALTH_PER_HUNTER)
 			ply:SetMaxHealth(health)
 			ply:SetHealth(health)
-			ply:Give("weapon_hg_axe")
-			ply:Give("weapon_hg_shovel")
+			ply:Give("weapon_kingkong")
 			zb.GiveRole(ply, "King Kong", Color(150, 55, 20))
 
 			if ply.organism then
@@ -109,7 +109,7 @@ function MODE:GiveEquipment()
 			zb.GiveRole(ply, "Kong Hunter", Color(40, 125, 200))
 		end
 
-		ply:SelectWeapon("weapon_hands_sh")
+		ply:SelectWeapon(ply == king and "weapon_kingkong" or "weapon_hands_sh")
 		ply:SetSuppressPickupNotices(false)
 		timer.Simple(0.1, function()
 			if IsValid(ply) then ply.noSound = false end
